@@ -8,4 +8,9 @@ class Pekerjaan extends CI_Controller {
   {
     # code...
   }
+
+  public function index()
+  {
+    
+  }
 }
