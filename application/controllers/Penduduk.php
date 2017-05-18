@@ -186,6 +186,6 @@ class Penduduk extends CI_Controller {
   }
 
 }
-
+//fjlhj
 /* End of file Penduduk.php */
 /* Location : application/controllers/Penduduk.php */
