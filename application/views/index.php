@@ -32,6 +32,9 @@
 <script src="<?php echo base_url()?>assets/plugins/bootbox/bootbox.min.js"></script>
 <link href="<?php echo base_url()?>assets/plugins/select2/css/select2.css" rel="stylesheet">
 <script src="<?php echo base_url()?>assets/plugins/select2/js/select2.full.min.js"></script>
+<script src="<?php echo base_url()?>assets/plugins/notification/pnotify.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/plugins/notification/noty.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/plugins/notification/jgrowl.min.js"></script>
 
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -162,7 +165,10 @@
 <script src="<?php echo base_url()?>assets/plugins/datatables/js/dataTables-script.js"></script>
 <!-- Select2-->
 <script src="<?php echo base_url()?>assets/plugins/select2/js/select2.full.min.js"></script>
-
+<!--PNotify-->
+<script type="text/javascript" src="<?php echo base_url()?>assets/plugins/notification/pnotify.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/plugins/notification/noty.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/plugins/notification/jgrowl.min.js"></script>
 
 
 

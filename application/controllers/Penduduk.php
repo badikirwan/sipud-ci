@@ -7,11 +7,11 @@ class Penduduk extends CI_Controller {
   function __construct()
   {
     parent::__construct();
-    $config['tag_open'] = '<ol class="breadcrumb breadcrumb-3"';
-    $config['tag_close'] = '</ol>';
-    $config['li_open'] = '<li>';
-    $config['li_close'] = '</li>';
-    $config['divider'] = '<span class="divider"> / </span>';
+    $config['tag_open']   = '<ol class="breadcrumb breadcrumb-3"';
+    $config['tag_close']  = '</ol>';
+    $config['li_open']    = '<li>';
+    $config['li_close']   = '</li>';
+    $config['divider']    = '<span class="divider"> / </span>';
     $this->breadcrumb->initialize($config);
     $this->load->model('m_penduduk');
   }
@@ -33,7 +33,15 @@ class Penduduk extends CI_Controller {
     $this->load->view('index', $data);
   }
 
-/*Fungsi tambah data KK*/
+/*START FUNGSI DI DATA KK*/
+//Fungsi untuk mengambil data KK berdasarkan ID
+  public function get_id_kk($id)
+  {
+    $data = $this->m_penduduk->get_by_id($id);
+    echo json_encode($data);
+  }
+
+//Fungsi tambah data KK
   public function add_kk()
   {
     $data = array(
@@ -51,18 +59,33 @@ class Penduduk extends CI_Controller {
     $this->m_penduduk->add_kk($data);
     redirect('penduduk');
   }
-  /*END Fungsi tambah data KK*/
 
+//Fungsi untuk merubah data KK
+  public function update_kk()
+  {
+    $id = $this->input->post('id');
+    $data = array(
+      'no_kk'       => $this->input->post('no_kk'),
+      'desa'        => $this->input->post('desa'),
+      'dusun'       => $this->input->post('dusun'),
+      'rt'          => $this->input->post('rt'),
+      'rw'          => $this->input->post('rw'),
+      'kecamatan'   => $this->input->post('kec'),
+      'kab_kota'    => $this->input->post('kab_kota'),
+      'kode_pos'    => $this->input->post('kd_pos'),
+      'provinsi'    => $this->input->post('prov')
+     );
+
+     $this->m_penduduk->update_kk($data, $id);
+  }
+
+//Fungsi untuk menghapus data KK
   public function delete_kk($id)
   {
     $this->m_penduduk->delete_kk($id);
   }
 
-  public function update_kk()
-  {
-
-  }
-
+//Fungsi untuk melihat data penduduk per KK
   public function detail_kk($id)
   {
     $no_kk = $this->m_penduduk->get_no_kk($id);
@@ -82,6 +105,7 @@ class Penduduk extends CI_Controller {
     $this->breadcrumb->append_crumb('Detail KK No.'.$no_kk, site_url('penduduk'));
     $this->load->view('index', $data);
   }
+/*END FUNGSI DI DATA KK*/
 
 /*Fungsi tambah penduduk*/
   public function add_penduduk($id)

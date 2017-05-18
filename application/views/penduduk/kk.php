@@ -26,7 +26,7 @@
                 <th>Desa</th>
                 <th>Dusun</th>
                 <th>Rt/Rw</th>
-                <th width="10%">Aksi</th>
+                <th width="20%">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -42,7 +42,7 @@
                   <td><?php echo $key->rt?>/<?php echo $key->rw?></td>
                   <td>
                     <button onclick="location.href='<?php echo base_url('penduduk/detail_kk/'.$key->id_kk)?>'" class="btn btn-info btn-sm" type="button"><i class="icon-eye"></i> Detail</button>
-                    <button class="btn btn-primary btn-sm" type="button"><i class="icon-pencil"></i> Edit</button>
+                    <button onclick="get_id(<?php echo $key->id_kk?>)" class="btn btn-primary btn-sm" type="button"><i class="icon-pencil"></i> Edit</button>
                     <button onclick="delete_kk(<?php echo $key->id_kk?>)"class="btn btn-secondary btn-sm delete" type="button"><i class="icon-trash"></i> Delete</button>
                   </td>
                 </tr>
@@ -64,6 +64,7 @@
           <h4 class="modal-title">Add data</h4>
         </div>
         <div class="modal-body">
+          <input type="hidden" name="id" class="form-control">
           <div class="form-group">
             <label class="col-md-3">No KK</label>
             <div class="col-md-9">
@@ -130,7 +131,7 @@
         <br>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="save_kk" type="submit" class="btn btn-primary">Save</button>
+        <button onclick="save()" type="submit" class="btn btn-primary">Save</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -138,21 +139,53 @@
 </div>
 
 <script type="text/javascript">
-$(document).ready(function() {
-  $("#save_kk").click(function() {
-    $.ajax({
-      url : '<?php echo base_url('penduduk/add_kk')?>',
-      data : $('#form').serialize(),
-      type : 'POST',
-      success : function(data) {
-        location.reload();
-      },
-      error : function(data) {
+var methodku;
+var url;
 
-      }
-    });
+function get_id(id) {
+  methodku = 'update';
+  $.ajax({
+    url : '<?php echo base_url('penduduk/get_id_kk/')?>'+ id,
+    type : 'GET',
+    dataType : 'JSON',
+    success : function(data) {
+      $('[name="id"]').val(data.id_kk);
+      $('[name="no_kk"]').val(data.no_kk);
+      $('[name="desa"]').val(data.desa);
+      $('[name="dusun"]').val(data.dusun);
+      $('[name="rt"]').val(data.rt);
+      $('[name="rw"]').val(data.rw);
+      $('[name="kec"]').val(data.kecamatan);
+      $('[name="kab_kota"]').val(data.kab_kota);
+      $('[name="kd_pos"]').val(data.kode_pos);
+      $('[name="prov"]').val(data.provinsi);
+      $('#modal-kk').modal('show'); // show bootstrap modal when complete loaded
+      $('.modal-title').text('Edit Siswa');
+    },
+    error : function(jqXHR, textStatus, errorThrown) {
+      alert('Error get data from ajax');
+    }
   });
-});
+}
+
+function save() {
+  if (methodku == 'update') {
+    url = '<?php echo base_url('penduduk/update_kk')?>';
+  } else {
+    url = '<?php echo base_url('penduduk/add_kk')?>';
+  }
+  $.ajax({
+    url : url,
+    data : $('#form').serialize(),
+    type : 'POST',
+    success : function(data) {
+      location.reload();
+    },
+    error : function(data) {
+
+    }
+  });
+}
 
 function delete_kk(id) {
   bootbox.dialog({
