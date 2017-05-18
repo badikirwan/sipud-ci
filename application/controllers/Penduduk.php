@@ -66,14 +66,14 @@ class Penduduk extends CI_Controller {
     $id = $this->input->post('id');
     $data = array(
       'no_kk'       => $this->input->post('no_kk'),
-      'desa'        => $this->input->post('desa'),
-      'dusun'       => $this->input->post('dusun'),
+      'desa'        => strtoupper($this->input->post('desa')),
+      'dusun'       => strtoupper($this->input->post('dusun')),
       'rt'          => $this->input->post('rt'),
       'rw'          => $this->input->post('rw'),
-      'kecamatan'   => $this->input->post('kec'),
-      'kab_kota'    => $this->input->post('kab_kota'),
+      'kecamatan'   => strtoupper($this->input->post('kec')),
+      'kab_kota'    => strtoupper($this->input->post('kab_kota')),
       'kode_pos'    => $this->input->post('kd_pos'),
-      'provinsi'    => $this->input->post('prov')
+      'provinsi'    => strtoupper($this->input->post('prov'))
      );
 
      $this->m_penduduk->update_kk($data, $id);
