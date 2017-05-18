@@ -184,7 +184,7 @@ class Penduduk extends CI_Controller {
       redirect('penduduk/detail_kk/'.$id);
     }
   }
-/*END Fungsi proses tambah penduduk*/
+
 }
 
 /* End of file Penduduk.php */
