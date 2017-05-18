@@ -33,6 +33,7 @@ class Penduduk extends CI_Controller {
     $this->load->view('index', $data);
   }
 
+/*Fungsi tambah data KK*/
   public function add_kk()
   {
     $data = array(
@@ -50,6 +51,7 @@ class Penduduk extends CI_Controller {
     $this->m_penduduk->add_kk($data);
     redirect('penduduk');
   }
+  /*END Fungsi tambah data KK*/
 
   public function delete_kk($id)
   {
@@ -81,7 +83,7 @@ class Penduduk extends CI_Controller {
     $this->load->view('index', $data);
   }
 
-  /*Fungsi tambah penduduk*/
+/*Fungsi tambah penduduk*/
   public function add_penduduk($id)
   {
     $data = array(
@@ -100,9 +102,9 @@ class Penduduk extends CI_Controller {
     $this->breadcrumb->append_crumb('Detail KK', site_url('penduduk'));
     $this->load->view('index', $data);
   }
-  /*END Fungsi tambah penduduk*/
+/*END Fungsi tambah penduduk*/
 
-  /*Fungsi proses tambah penduduk*/
+/*Fungsi proses tambah penduduk*/
   public function proc_add_penduduk()
   {
     $id = $this->input->post('no_kk');
@@ -158,7 +160,7 @@ class Penduduk extends CI_Controller {
       redirect('penduduk/detail_kk/'.$id);
     }
   }
-  /*END Fungsi proses tambah penduduk*/
+/*END Fungsi proses tambah penduduk*/
 }
 
 /* End of file Penduduk.php */
