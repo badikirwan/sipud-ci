@@ -26,7 +26,6 @@
                 <th>Desa</th>
                 <th>Dusun</th>
                 <th>Rt/Rw</th>
-                <th>Rw</th>
                 <th width="10%">Aksi</th>
               </tr>
             </thead>
@@ -41,7 +40,6 @@
                   <td><?php echo $key->desa?></td>
                   <td><?php echo $key->dusun?></td>
                   <td><?php echo $key->rt?>/<?php echo $key->rw?></td>
-                  <td><?php echo $key->rw?></td>
                   <td>
                     <button onclick="location.href='<?php echo base_url('penduduk/detail_kk/'.$key->id_kk)?>'" class="btn btn-info btn-sm" type="button"><i class="icon-eye"></i> Detail</button>
                     <button class="btn btn-primary btn-sm" type="button"><i class="icon-pencil"></i> Edit</button>
