@@ -110,6 +110,7 @@ class Penduduk extends CI_Controller {
 //Fungsi tambah penduduk
   public function add_penduduk($id)
   {
+    $id_kk = $this->m_penduduk->get_no_kk($id);
     $data = array(
       'contents'  => 'penduduk/add_penduduk',
       'penduduk'  => 'active in',
@@ -121,9 +122,9 @@ class Penduduk extends CI_Controller {
       'id'        => $id
     );
 
-    $this->breadcrumb->append_crumb('<i class="icon-home"></i> Home', site_url());
-    $this->breadcrumb->append_crumb('Master Data', site_url('penduduk'));
-    $this->breadcrumb->append_crumb('Detail KK', site_url('penduduk'));
+    $this->breadcrumb->append_crumb('<i class="icon-home"></i> Penduduk', site_url('penduduk'));
+    $this->breadcrumb->append_crumb('No.'.$id_kk, site_url('penduduk/detail_kk/'.$id));
+    $this->breadcrumb->append_crumb('Tambah penduduk', site_url('penduduk'));
     $this->load->view('index', $data);
   }
 
@@ -174,7 +175,7 @@ class Penduduk extends CI_Controller {
         'golongan_darah'    => $this->input->post('golongan_darah'),
         'alamat'            => strtoupper($this->input->post('alamat')),
         'pekerjaan'         => strtoupper($this->input->post('pekerjaan')),
-        'kewarganegaraan'   => $this->input->post('negara'),
+        'kewarganegaraan'   => strtoupper($this->input->post('negara')),
         'agama'             => strtoupper($this->input->post('agama')),
         'foto'              => $this->upload->data('file_name'),
         'id_kk'             => $id
@@ -183,6 +184,41 @@ class Penduduk extends CI_Controller {
       $this->m_penduduk->add_penduduk($data);
       redirect('penduduk/detail_kk/'.$id);
     }
+  }
+
+  public function edit_penduduk()
+  {
+
+  }
+
+  public function delete_penduduk()
+  {
+
+  }
+
+  public function detail_penduduk($id)
+  {
+    $query = $this->db->where('nik', $id)
+                      ->get('penduduk');
+    $row   = $query->row();
+    $query = $this->db->where('id_kk', $row->id_kk)
+                      ->get('data_kk');
+    $row1  = $query->row();
+    $data  = array(
+      'contents'  => 'penduduk/detail_penduduk',
+      'penduduk'  => 'active in',
+      'master'    => '',
+      'title'     => 'Detail Penduduk',
+      'menu'      => 'menu.php',
+      'all'       => $row,
+      'agama'     => $this->db->get('agama')->result(),
+      'id'        => $id
+    );
+
+    $this->breadcrumb->append_crumb('<i class="icon-home"></i> Data KK', site_url('penduduk'));
+    $this->breadcrumb->append_crumb('Data KK.'.$row1->no_kk, site_url('penduduk/detail_kk/'.$row->id_kk));
+    $this->breadcrumb->append_crumb('Detail Penduduk NIK.'.$id, site_url('penduduk'));
+    $this->load->view('index', $data);
   }
 
 }
