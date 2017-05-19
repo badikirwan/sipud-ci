@@ -55,8 +55,8 @@
                 }?>
               </td>
               <td>
-                <button class="btn btn-info btn-sm" type="button"><i class="icon-eye"></i></button>
-                <button class="btn btn-primary btn-sm" type="button"><i class="icon-pencil"></i></button>
+                <a href="<?php echo base_url('penduduk/detail_penduduk/'.$key->nik)?>" class="btn btn-info btn-sm" type="button"><i class="icon-eye"></i></a>
+                <a href="<?php echo base_url('penduduk/detail_penduduk/'.$key->nik)?>" class="btn btn-primary btn-sm" type="button"><i class="icon-pencil"></i></a>
                 <button class="btn btn-warning btn-sm" type="button"><i class="icon-block"></i></button>
                 <button onclick="delete_kk(<?php echo $key->nik?>)"class="btn btn-secondary btn-sm delete" type="button"><i class="icon-trash"></i></button>
               </td>
