@@ -14,7 +14,7 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
-        <h4 class="panel-title">Default form Elements</h4>
+        <h4 class="panel-title">Tambah penduduk</h4>
       </div>
       <div class="panel-body form-horizontal">
         <?php echo form_open_multipart('penduduk/proc_add_penduduk')?>
@@ -103,7 +103,7 @@
               <select class="form-control" id="agama" name="agama" data-placeholder="Select a state" required>
                 <?php foreach ($agama as $key) :?>
                   <option value="">Select a state</option>
-                  <option value="<?php echo $key->id_agama?>"><?php echo $key->agama?></option>
+                  <option value="<?php echo $key->agama?>"><?php echo $key->agama?></option>
                 <?php endforeach ?>
               </select>
             </div>
