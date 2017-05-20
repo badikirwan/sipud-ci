@@ -191,11 +191,13 @@ class Penduduk extends CI_Controller {
 
   }
 
-  public function delete_penduduk()
+//Fungsi untuk menghapus penduduk
+  public function delete_penduduk($id)
   {
-
+    $this->m_penduduk->delete_penduduk($id);
   }
 
+//Fungsi untuk melihat detail penduduk berdasarkan NIK
   public function detail_penduduk($id)
   {
     $query = $this->db->where('nik', $id)
@@ -219,6 +221,11 @@ class Penduduk extends CI_Controller {
     $this->breadcrumb->append_crumb('Data KK.'.$row1->no_kk, site_url('penduduk/detail_kk/'.$row->id_kk));
     $this->breadcrumb->append_crumb('Detail Penduduk NIK.'.$id, site_url('penduduk'));
     $this->load->view('index', $data);
+  }
+
+  public function change_status_dead($id)
+  {
+
   }
 
 }
