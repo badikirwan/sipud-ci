@@ -107,6 +107,7 @@ class Penduduk extends CI_Controller {
   }
 /*END FUNGSI DI DATA KK*/
 
+/*START FUNGSI PENDUDUK*/
 //Fungsi tambah penduduk
   public function add_penduduk($id)
   {
@@ -186,9 +187,24 @@ class Penduduk extends CI_Controller {
     }
   }
 
-  public function edit_penduduk()
+  public function edit_penduduk($id)
   {
+    $data = array(
+      'contents'  => 'penduduk/edit_penduduk',
+      'penduduk'  => 'active in',
+      'master'    => '',
+      'title'     => 'penduduk',
+      'menu'      => 'menu.php',
+      'all'       => $this->db->where('nik', $id)
+                              ->get('penduduk')->row(),
+      'agama'     => $this->db->get('agama')->result(),
+      'id'        => $id
+    );
 
+    $this->breadcrumb->append_crumb('<i class="icon-home"></i> Penduduk', site_url('penduduk'));
+    $this->breadcrumb->append_crumb('No.', site_url('penduduk/detail_kk/'.$id));
+    $this->breadcrumb->append_crumb('Tambah penduduk', site_url('penduduk'));
+    $this->load->view('index', $data);
   }
 
 //Fungsi untuk menghapus penduduk
@@ -227,6 +243,7 @@ class Penduduk extends CI_Controller {
   {
 
   }
+  /*END FUNGSI PENDUDUK*/
 
 }
 
