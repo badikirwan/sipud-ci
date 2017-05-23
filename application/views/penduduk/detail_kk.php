@@ -19,7 +19,7 @@
       <div class="panel-body">
         <div class="table-responsive">
           <table class="table table-hover">
-            <thead>
+            <thead class="">
               <tr>
                 <th>No</th>
                 <th>Nik</th>
@@ -56,9 +56,9 @@
               </td>
               <td>
                 <a href="<?php echo base_url('penduduk/detail_penduduk/'.$key->nik)?>" class="btn btn-info btn-sm" type="button"><i class="icon-eye"></i></a>
-                <a href="<?php echo base_url('penduduk/detail_penduduk/'.$key->nik)?>" class="btn btn-primary btn-sm" type="button"><i class="icon-pencil"></i></a>
-                <button class="btn btn-warning btn-sm" type="button"><i class="icon-block"></i></button>
-                <button onclick="delete_kk(<?php echo $key->nik?>)"class="btn btn-secondary btn-sm delete" type="button"><i class="icon-trash"></i></button>
+                <a href="<?php echo base_url('penduduk/edit_penduduk/'.$key->nik)?>" class="btn btn-primary btn-sm" type="button"><i class="icon-pencil"></i></a>
+                <button onclick="ubah_status()" class="btn btn-warning btn-sm" type="button"><i class="icon-block"></i></button>
+                <button onclick="delete_penduduk(<?php echo $key->nik?>)"class="btn btn-secondary btn-sm delete" type="button"><i class="icon-trash"></i></button>
               </td>
             </tr>
           <?php endforeach ?>
@@ -70,80 +70,10 @@
   </div>
 </div>
 
-<div id="modal-kk" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <form action="#" id="form">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Add data</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="col-md-3">No KK</label>
-          <div class="col-md-9">
-            <input type="text" name="no_kk" placeholder="No KK" class="form-control">
-          </div>
-        </div>
-        <br>
-        <div class="form-group">
-          <label class="col-md-3">Desa</label>
-          <div class="col-md-9">
-            <input type="text" name="desa" placeholder="Desa" class="form-control">
-          </div>
-        </div>
-        <br>
-        <div class="form-group">
-          <label class="col-md-3">Dusun</label>
-          <div class="col-md-9">
-            <input type="text" name="dusun" placeholder="Dusun" class="form-control">
-          </div>
-        </div>
-        <br>
-        <div class="form-group">
-          <label class="col-md-3">RT</label>
-          <div class="col-md-9">
-            <input type="text" name="rt" placeholder="RT" class="form-control">
-          </div>
-        </div>
-        <br>
-        <div class="form-group">
-          <label class="col-md-3">RW</label>
-          <div class="col-md-9">
-            <input type="text" name="rw" placeholder="RW" class="form-control">
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="save" type="submit" class="btn btn-primary">Save</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</form>
-</div>
-
 <script type="text/javascript">
-$(document).ready(function() {
-  $("#save").click(function() {
-    $.ajax({
-      url : '<?php echo base_url('penduduk/add_kk')?>',
-      data : $('#form').serialize(),
-      type : 'POST',
-      success : function(data) {
-        location.reload();
-      },
-      error : function(data) {
-
-      }
-    });
-  });
-});
-
-function delete_kk(id) {
+function delete_penduduk(id) {
 bootbox.dialog({
-  message: "Are you sure you want to delete ?",
+  message: "Apakah anda yakin ingin menghapusnya ?",
   buttons: {
     success: {
       label: "No",
@@ -158,7 +88,36 @@ bootbox.dialog({
       callback: function() {
         $.ajax({
           type: 'POST',
-          url: '<?php echo base_url('penduduk/delete_kk')?>/'+id,
+          url: '<?php echo base_url('penduduk/delete_penduduk')?>/'+id,
+        }).done(function(response){
+          location.reload();
+        }).fail(function(){
+          bootbox.alert('Something Went Wrong...');
+        })
+      }
+    }
+  }
+})
+}
+
+function ubah_status(id) {
+bootbox.dialog({
+  message: "Apakah anda yakin ingin merubah status ?",
+  buttons: {
+    success: {
+      label: "No",
+      className: "btn-default",
+      callback: function() {
+        $('.bootbox').modal('hide');
+      }
+    },
+    danger: {
+      label: "Yes",
+      className: "btn-info",
+      callback: function() {
+        $.ajax({
+          type: 'POST',
+          url: '<?php echo base_url('penduduk/delete_penduduk')?>/'+id,
         }).done(function(response){
           location.reload();
         }).fail(function(){
