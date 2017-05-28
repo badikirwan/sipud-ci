@@ -207,6 +207,61 @@ class Penduduk extends CI_Controller {
     $this->load->view('index', $data);
   }
 
+  public function proc_edit_penduduk($nik)
+  {
+    $id = $this->input->post('no_kk');
+    $this->form_validation->set_rules('nik', 'nik', 'required');
+    $this->form_validation->set_rules('nama','nama','required');
+    $this->form_validation->set_rules('tmp_lahir','tmp_lahir','required');
+    $this->form_validation->set_rules('tgl_lahir','tgl_lahir','required');
+    $this->form_validation->set_rules('jk','jk','required');
+    $this->form_validation->set_rules('golongan_darah','golongan_darah','required');
+    $this->form_validation->set_rules('alamat','alamat','required');
+    $this->form_validation->set_rules('pekerjaan','pekerjaan','required');
+    $this->form_validation->set_rules('negara','negara','required');
+    $this->form_validation->set_rules('agama','agama','required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->session->set_flashdata('error', 'Data gagal di simpan');
+      redirect('penduduk/edit_penduduk/'.$id);
+    } else {
+      $this->load->library('upload');
+      $nmfile                   = "file_".time();
+      $config['upload_path']    = 'upload/';
+      $config['allowed_types']  = 'gif|jpg|png|jpeg|bmp';
+      $config['max_size']       = '3072';
+      $config['max_width']      = '5000';
+      $config['max_height']     = '5000';
+      $config['file_name']      = $nmfile;
+      $this->upload->initialize($config);
+
+      if($_FILES['gambar']['name']) {
+        if ($this->upload->do_upload('gambar')) {
+          $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-danger\" id=\"alert\">Gagal upload gambar !!</div></div>");
+        } else {
+          $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-danger\" id=\"alert\">Gagal upload gambar !!</div></div>");
+        }
+      }
+
+      $data = array(
+        'nik'               => $this->input->post('nik'),
+        'nama'              => strtoupper($this->input->post('nama')),
+        'tempat_lahir'      => strtoupper($this->input->post('tmp_lahir')),
+        'tanggal_lahir'     => $this->input->post('tgl_lahir'),
+        'jenis_kelamin'     => $this->input->post('jk'),
+        'golongan_darah'    => $this->input->post('golongan_darah'),
+        'alamat'            => strtoupper($this->input->post('alamat')),
+        'pekerjaan'         => strtoupper($this->input->post('pekerjaan')),
+        'kewarganegaraan'   => strtoupper($this->input->post('negara')),
+        'agama'             => strtoupper($this->input->post('agama')),
+        'foto'              => $this->upload->data('file_name'),
+      );
+
+      $this->m_penduduk->edit_penduduk($data, $nik);
+      redirect('penduduk/detail_kk/'.$id);
+    }
+  }
+
 //Fungsi untuk menghapus penduduk
   public function delete_penduduk($id)
   {
